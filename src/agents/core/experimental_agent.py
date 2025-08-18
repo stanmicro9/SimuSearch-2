@@ -14,10 +14,10 @@ class ResearchResponse(BaseModel):
 class ExperimentalAgent(BaseAgent):
     def __init__(self, llm):
         super().__init__(
-            name="ExperimentalAgent",                 # 1. name
-            llm=llm,                                  # 2. llm
-            response_model=ResearchResponse,          # 3. response model
-            system_prompt="You are an experimental scientist. Design and analyze experiments."  # 4. system prompt
+            name="ExperimentalAgent",
+            llm=llm,
+            response_model=ResearchResponse,
+            system_prompt="You are an experimental scientist. Design and analyze experiments."
         )
 
     def design_experiment(self, hypothesis: str):
