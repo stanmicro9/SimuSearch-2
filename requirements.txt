@@ -1,29 +1,37 @@
-langchain 
-wikipedia 
-langchain-community 
-langchain-openai
-langchain-anthropic
-python-dotenv
-pydantic
-duckduckgo-search
-
-
-#Core LangChain dependencies (pinned to 0.1.x ecosystem) ---
+# Core LangChain dependencies
 langchain==0.1.16
-langchain-core==0.1.46
+#langchain-core==0.1.47, langchain and lanchain community will pull the right one, no need
 langchain-openai==0.0.8
 langchain-google-genai==0.0.6
 langchain-text-splitters==0.0.1
+langchain-community==0.0.35
 
-#Google Generative AI SDK
-google-generativeai==0.3.2   # compatible with langchain-google-genai
+# Google Generative AI SDK
+google-generativeai==0.3.2
 
-#Data handling and validation
-pydantic==1.10.14            # must stay in 1.x for langchain 0.1.x
+# Data handling and validation
+pydantic==1.10.14
 numpy>=1.24.0
+scipy>=1.10.0
 
-#Environment and utilities
+# Environment and utilities
 python-dotenv>=1.0.0
 
-#Development and testing
+# Optional visualization (for future enhancements)
+matplotlib>=3.7.0
+plotly>=5.17.0
+
+# Development and testing
 pytest>=8.3.0
+black>=23.0.0
+flake8>=6.0.0
+
+# Additional scientific libraries
+pandas>=2.0.0
+scikit-learn>=1.3.0
+
+# Web API
+fastapi>=0.110.0
+uvicorn>=0.29.0
+
+psutil>=5.9.0

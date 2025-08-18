@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  scientific-agents:
+    build: .
+    container_name: scientific-investigation-system
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - PYTHONPATH=/app
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    stdin_open: true
+    tty: true
+    networks:
+      - scientific-net
+
+  # Optional: Add database for storing investigation results
+  postgres:
+    image: postgres:15-alpine
+    container_name: scientific-db
+    environment:
+      POSTGRES_USER: scientist
+      POSTGRES_PASSWORD: research123
+      POSTGRES_DB: investigations
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - scientific-net
+    ports:
+      - "5432:5432"
+
+networks:
+  scientific-net:
+    driver: bridge
+
+volumes:
+  postgres_data:

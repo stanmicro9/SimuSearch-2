@@ -1,135 +1,168 @@
-# SimuSearch
-Multi-Agent Scientific Research Simulator
+# Multi-Agent Scientific Investigation System
 
-A sophisticated multi-agent system for conducting scientific research simulations using LangChain and AI-powered agents.
+## Overview
 
-## 🚀 Features
+This system implements a multi-agent AI framework for conducting automated scientific investigations across multiple domains. The system uses three specialized agents that collaborate to:
 
-### **Core Agents**
-- **Experimental Agent** - Design experiments, collect data, manage equipment
-- **Theoretical Agent** - Generate hypotheses, create mathematical models, literature review
-- **Communication Agent** - Inter-agent coordination and message routing
+1. **Theoretical Agent**: Generates hypotheses and mathematical models
+2. **Experimental Agent**: Designs and executes simulated experiments  
+3. **Collector Agent**: Analyzes results and synthesizes conclusions
 
-### **Key Capabilities**
-- **AI-Powered Research** - LangChain integration for intelligent decision making
-- **Scientific Workflow** - Complete experiment lifecycle management
-- **Multi-Agent Collaboration** - Coordinated research between specialized agents
-- **Data Management** - Structured data collection and analysis
-- **Reproducibility** - Comprehensive experiment tracking and validation
+## Features
 
-## 🏗️ Architecture
+- 🔬 **Multi-domain support**: Physics, Chemistry, Biology, Environmental Science, Engineering, Medicine
+- 🤖 **Agent collaboration**: Structured communication using LangChain
+- 🧪 **Simulation environments**: Generic simulators for various scientific domains
+- 📊 **Statistical analysis**: Correlation analysis, confidence scoring, error estimation
+- 📚 **Literature integration**: Theoretical knowledge base with domain-specific principles
+- 🎯 **Dynamic adaptation**: Automatically adapts to user's scientific question
 
-```
-src/
-├── agents/
-│   ├── core/                    # Core research agents
-│   │   ├── experimental_agent.py    # Lab work & data collection
-│   │   ├── theoretical_agent.py     # Theory & modeling
-│   │   └── base_agent.py           # Base agent class
-│   ├── coordination/            # System coordination agents
-│   │   ├── communication_agent.py   # Inter-agent messaging
-│   │   └── project_manager_agent.py # Task coordination
-│   ├── research/               # Specialized research agents
-│   │   ├── analysis_agent.py       # Data analysis
-│   │   ├── literature_agent.py     # Literature review
-│   │   └── validation_agent.py     # Quality assurance
-│   └── __init__.py
-├── environment/                 # Simulation environment
-├── communication/              # Communication protocols
-└── experiments/                # Experiment frameworks
-```
+## Installation
 
-## 🛠️ Installation
-
-1. **Clone the repository**
+1. Clone the repository
+2. Create virtual environment:
    ```bash
-   git clone <repository-url>
-   cd SimuSearch
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-2. **Install dependencies**
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Set up environment variables**
+4. Set up environment variables:
    ```bash
-   export OPENAI_API_KEY="your-api-key-here"
+   cp .env.example .env
+   # Edit .env file and add your GOOGLE_API_KEY
    ```
 
-## 🧪 Usage
+## Usage
 
-### **Quick Demo**
+### Interactive Mode
 ```bash
-python demo_agents.py
+python -m src.main
 ```
 
-### **Full Test Suite**
+### Command Line Mode
 ```bash
-python test_agents.py
+python -m src.main "How does temperature affect chemical reaction rates?"
 ```
 
-### **Custom Experiment**
+### Programmatic Usage
 ```python
-from src.agents.core.experimental_agent import ExperimentalAgent
-from src.agents.core.theoretical_agent import TheoreticalAgent
+from src.workflows.scientific_workflow import ScientificWorkflow
+from langchain_google_genai import ChatGoogleGenerativeAI
 
-# Initialize agents
-exp_agent = ExperimentalAgent("ExpAgent-1")
-theo_agent = TheoreticalAgent("TheoAgent-1")
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key="your_key")
+workflow = ScientificWorkflow(llm)
 
-# Generate hypothesis
-hypothesis = theo_agent.generate_pendulum_hypothesis()
-
-# Design experiment
-experiment = exp_agent.design_pendulum_experiment()
-
-# Run experiment workflow
-exp_agent.start_experiment("exp_001")
-# ... collect data ...
-exp_agent.complete_experiment("exp_001")
+result = workflow.investigate("Your scientific question here")
+print(result.final_conclusion)
 ```
 
-## 🔬 Example: Pendulum Experiment
+## System Architecture
 
-The system includes a complete pendulum experiment workflow:
+```
+User Question → Theoretical Agent → Experimental Agent → Collector Agent → Final Analysis
+                      ↓                    ↓                   ↓
+                 Hypothesis         Experiment Design     Statistical Analysis
+                Mathematical       Simulation Results    Theory vs Experiment
+                   Model              Data Collection       Conclusions
+```
 
-1. **Theory Development** - Generate hypothesis about pendulum behavior
-2. **Mathematical Modeling** - Create equations for period vs. length
-3. **Experiment Design** - Plan data collection methodology
-4. **Data Collection** - Measure periods for different lengths
-5. **Analysis** - Compare experimental vs. theoretical results
-6. **Validation** - Assess hypothesis support
+## Agent Responsibilities
 
-## 🎯 Next Steps
+### Theoretical Agent
+- Domain identification and knowledge retrieval
+- Hypothesis generation based on scientific principles
+- Mathematical model creation
+- Literature review simulation
+- Experimental design guidance
 
-- [ ] Implement Analysis Agent for statistical analysis
-- [ ] Build Physics Environment simulation
-- [ ] Add Validation Agent for quality assurance
-- [ ] Create Project Manager Agent for coordination
-- [ ] Implement communication protocols
-- [ ] Add data visualization capabilities
+### Experimental Agent  
+- Domain-specific experiment design
+- Parameter optimization for each scientific field
+- Simulation execution with realistic noise models
+- Statistical data analysis
+- Results interpretation
 
-## 📚 Dependencies
+### Collector Agent
+- Cross-agent data aggregation
+- Theory-experiment comparison
+- Confidence assessment
+- Future research recommendations
+- Final conclusion synthesis
 
-- **LangChain** - AI agent framework
-- **OpenAI** - Language model API
-- **NumPy** - Scientific computing
-- **Pydantic** - Data validation
-- **Rich** - Terminal output formatting
+## Communication System
 
-## 🤝 Contributing
+The agents communicate through a structured LangChain-based hub that:
+- Maintains conversation history
+- Provides structured message passing
+- Enables context sharing
+- Supports workflow coordination
+
+## Simulation Capabilities
+
+The system includes specialized simulators for:
+
+- **Physics**: Thermal effects, mechanical systems, electromagnetic phenomena
+- **Chemistry**: Reaction kinetics, thermodynamics, equilibrium systems
+- **Biology**: Population dynamics, growth models, ecological interactions
+- **Environmental**: Climate effects, pollution impact, ecosystem responses
+- **Engineering**: Material properties, efficiency optimization
+- **Medicine**: Pharmacokinetics, dose-response relationships
+
+## Example Investigations
+
+1. **Temperature and Reaction Rates**: Investigates Arrhenius equation
+2. **Light and Photosynthesis**: Models Michaelis-Menten kinetics
+3. **Material Stress-Strain**: Simulates Hooke's law and yield behavior
+4. **Drug Dosage Effects**: Models Hill equation dose-response
+5. **Environmental Pollution**: Analyzes ecosystem impact relationships
+
+## Configuration
+
+Edit `src/config.py` to customize:
+- Model parameters
+- Simulation precision
+- Domain-specific settings
+- Timeout values
+
+## Testing
+
+Run the test suite:
+```bash
+pytest tests/ -v
+```
+
+## Error Handling
+
+The system includes comprehensive error handling:
+- Configuration validation
+- Agent communication failures
+- Simulation errors
+- Graceful degradation with fallback modes
+
+## Future Enhancements
+
+- Integration with real experimental data APIs
+- Advanced visualization capabilities
+- Machine learning model integration
+- Multi-hypothesis testing
+- Collaborative agent competition modes
+
+## Troubleshooting
+
+Common issues:
+1. **API Key Error**: Ensure GOOGLE_API_KEY is set in .env file
+2. **Import Errors**: Check all dependencies are installed
+3. **Simulation Errors**: Verify parameter ranges are reasonable
+4. **Memory Issues**: Reduce simulation time steps or sample sizes
+
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Implement your changes
-4. Add tests
-5. Submit a pull request
-
-## 📄 License
-
-MIT License - see LICENSE file for details
-
-## 🆘 Support
-
-For questions or issues, please open a GitHub issue or contact me!
+2. Create feature branch
+3. Add tests for new functionality
+4. Submit pull request
