@@ -6,32 +6,19 @@ import numpy as np
 from dataclasses import dataclass
 from langchain.schema import BaseMessage, HumanMessage, AIMessage, SystemMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.tools import BaseTool
-from langchain.agents import AgentExecutor, create_openai_functions_agent
+from langchain.tools import BaseTool, tool
+from langchain.agents import AgentExecutor, create_openai_functions_agent, create_tool_calling_agent, AgentExecutor
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.output_parsers import PydanticOutputParser
+from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import BaseModel, Field
 from src.agents.base_agent import BaseAgent
 from src.config import api_key
 import os
 from dotenv import load_dotenv
-from pydantic import BaseModel
-from langchain_openai import ChatOpenAI
-from langchain_anthropic import ChatAnthropic
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import PydanticOutputParser
-from langchain.agents import create_tool_calling_agent, AgentExecutor
 #from tools import search_tool, wiki_tool, save_tool
-from langchain_google_genai import ChatGoogleGenerativeAI
 #the pydantic model
 #from src.schemas import ResearchResponse
-
-from typing import List
-from langchain.tools import tool
-from langchain.tools.base import BaseTool
-from datetime import datetime
-from pydantic import BaseModel
-from langchain_core.output_parsers import PydanticOutputParser
-from src.agents.base_agent import BaseAgent
 
 class HypothesisResponse(BaseModel):
     id: str
