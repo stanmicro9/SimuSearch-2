@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 llm = ChatGoogleGenerativeAI(
-    model="gemini-2.0-flash",
+    model="gemini-2.5-flash",
     convert_system_message_to_human=True
 )
 
@@ -13,7 +13,7 @@ theo = TheoreticalAgent(llm)
 exp = ExperimentalAgent(llm)
 
 # 1. Theory
-hyp = theo.generate_hypothesis("pendulum motion")
+hyp = theo.generate_hypothesis("3d-reconstruction from 2d input")
 print("🧠 Theoretical Agent Hypothesis:", hyp)
 
 # 2. Experiment
