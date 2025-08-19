@@ -47,8 +47,29 @@ class TheoreticalAgent(BaseAgent):
             hypothesis_id = f"hyp_{datetime.now().strftime('%Y%m%d%H%M%S')}"
             return f"✅ {hypothesis_id}: {result}"
 
-        return [generate_hypothesis]
+        @tool
+        def revise_hypothesis(experiment_results: str, current_hypothesis: str = "") -> str:
+            """Revise the current hypothesis based on experimental results."""
+            query = (
+                f"Revise the following hypothesis based on these experimental results.\n"
+                f"Hypothesis: {current_hypothesis}\n"
+                f"Experimental Results: {experiment_results}"
+            )
+            result = self.run(query=query)
+            revised_id = f"rev_{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            return f"🔄 {revised_id}: {result}"
+
+        return [generate_hypothesis, revise_hypothesis]
+
 
     def generate_hypothesis(self, topic: str, context: str = "") -> str:
         """Convenience method (direct call without agent executor)."""
         return self.run(query=f"Generate a hypothesis about {topic}. Context: {context}")
+    def revise_hypothesis(self, experiment_results: str, current_hypothesis: str = "") -> str:
+        """Convenience method to revise a hypothesis based on experimental results."""
+        query = (
+            f"Revise the following hypothesis based on these experimental results.\n"
+            f"Hypothesis: {current_hypothesis}\n"
+            f"Experimental Results: {experiment_results}"
+        )
+        return self.run(query=query)
