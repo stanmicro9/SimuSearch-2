@@ -1,6 +1,8 @@
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.exceptions import OutputParserException
+import json
+import re
+from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
-
 class BaseAgent:
     def __init__(self, name, llm, response_model, system_prompt: str):
         self.name = name
@@ -26,4 +28,22 @@ class BaseAgent:
             agent_scratchpad=agent_scratchpad or []
         )
         result = self.llm.invoke(prompt.to_messages())
-        return self.parser.parse(result.content)
+
+        try:
+            return self.parser.parse(result.content)
+        except OutputParserException:
+            # --- attempt a repair ---
+            cleaned = self._repair_json(result.content)
+            try:
+                return self.parser.parse(cleaned)
+            except Exception:
+                # fallback if still broken
+                return {"error": "Failed to parse", "raw": result.content}
+
+    def _repair_json(self, text: str) -> str:
+        """Try to salvage malformed JSON from LLM output."""
+        # Extract JSON between braces
+        match = re.search(r"\{.*\}", text, re.DOTALL)
+        if match:
+            return match.group(0)
+        return text.strip()

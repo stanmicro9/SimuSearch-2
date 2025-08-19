@@ -42,7 +42,7 @@ def main():
 
     while confidence < CONFIDENCE_THRESHOLD and turn <= MAX_TURNS:
         print(f"\n--- Turn {turn} ---")
-        user_input = input("Choose next agent (experimental/analysis/) or type 'stop' to end: ").strip().lower()
+        user_input = input("Choose next agent (experimental/analysis) or type 'stop' to end: ").strip().lower()
         if user_input == "stop":
             print("\nConversation stopped by user.")
             break
@@ -74,7 +74,7 @@ def main():
             )
             print("\nAnalysis Agent Result:", analysis_result)
         else:
-            print("Invalid choice. Please select 'experimental', 'analysis', 'literature', or 'stop'.")
+            print("Invalid choice. Please select 'experimental', 'analysis', or 'stop'.")
         turn += 1
 
     print(f"\nConversation ended after {turn-1} turns with confidence: {confidence:.2f}")

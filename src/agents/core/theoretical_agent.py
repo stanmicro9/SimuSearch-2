@@ -16,9 +16,6 @@ from src.agents.base_agent import BaseAgent
 from src.config import api_key
 import os
 from dotenv import load_dotenv
-#from tools import search_tool, wiki_tool, save_tool
-#the pydantic model
-#from src.schemas import ResearchResponse
 
 class HypothesisResponse(BaseModel):
     id: str
@@ -31,7 +28,12 @@ class TheoreticalAgent(BaseAgent):
             name="TheoreticalAgent",
             llm=llm,
             response_model=HypothesisResponse,   # only pass model
-            system_prompt="You are a theoretical scientist. Generate hypotheses and models."
+            system_prompt="""You are the Theoretical Agent. Your role is to generate, refine, and explain scientific hypotheses and conceptual frameworks.
+                            You propose theories, models, and predictions based on logical reasoning and prior knowledge.
+                            You suggest testable hypotheses that the Experimental Agent can investigate.
+                            You use mathematical, logical, or conceptual reasoning, but you do not run experiments yourself.
+                            You critically evaluate whether experimental findings support or contradict theoretical claims.
+                            Your outputs should be well-structured, with assumptions, predictions, and implications explicitly stated."""
         )
         self.tools = self._create_tools()
 
